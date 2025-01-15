@@ -1,0 +1,295 @@
+html,
+body {
+  margin: 0;
+  height: 100%; /* 화면 전체 높이를 100%로 설정 */
+  width: 100%; /* 화면 전체 너비를 100%로 설정 */
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+  height: 100%;
+  background-color: white;
+  border: none;
+
+  .header {
+    width: 100%;
+    height: 15%;
+    background-color: #00ba91;
+    border: #00ba91;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 80px;
+
+    .headerLeft {
+      margin-left: 20px;
+      width: 40%;
+      height: 50%;
+      display: flex;
+      align-items: center;
+      color: white;
+      font-weight: bolder;
+      font-size: 38px;
+    }
+
+    .headerRight {
+      width: 40%;
+      height: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 70%;
+    background-color: #e7f2e7;
+    border: #e7f2e7;
+    display: flex;
+    align-items: center;
+
+    .content {
+      width: 100%;
+      height: 90%;
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+
+      .sentence1,
+      .sentence2,
+      .sentence3 {
+        width: 60%;
+        height: 12%;
+        background-color: white;
+        border-radius: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .sentence1,
+      .sentence3 {
+        align-self: flex-start;
+        margin-left: 20px;
+      }
+
+      .sentence2 {
+        align-self: flex-end;
+        margin-right: 20px;
+      }
+
+      .PlanFit {
+        width: 100%;
+        height: 54%;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        flex-direction: row;
+        column-gap: 10px;
+
+        .Plan {
+          width: 50%;
+          height: 100%;
+          display: flex;
+          justify-content: end;
+          align-items: center;
+          color: #2c6b56;
+          font-weight: bolder;
+          font-size: 100px;
+          padding-bottom: 40px;
+        }
+
+        .Fit {
+          width: 48%;
+          height: 100%;
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          color: #08354d;
+          font-weight: bolder;
+          font-size: 100px;
+          padding-top: 36px;
+        }
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    div {
+      width: 20%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .button {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}
+
+.footer div:focus,
+.footer div:hover {
+  background-color: #2c6b56;
+  color: white;
+}
+
+.footer div .button {
+  margin-right: 8px;
+  color: inherit;
+}
+
+.footer div:hover .button,
+.footer div:focus .button {
+  color: white;
+}
+
+/* 미디어 쿼리: 낮은 해상도의 PC 또는 테블릿 가로 (최대 1024px) */
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 100%; /* 너비를 화면에 맞게 조정 */
+  }
+
+  .headerLeft {
+    font-size: 32px; /* 헤더 폰트 크기 조정 */
+  }
+
+  .headerRight {
+    font-size: 18px; /* 오른쪽 헤더 폰트 크기 조정 */
+  }
+
+  .sentence1,
+  .sentence2,
+  .sentence3 {
+    font-size: 18px; /* 문장 폰트 크기 조정 */
+  }
+
+  .PlanFit .Plan,
+  .PlanFit .Fit {
+    font-size: 80px; /* Plan과 Fit 글자 크기 조정 */
+  }
+
+  .footer div .button {
+    width: 25px;
+    height: 25px; /* 아이콘 크기 조정 */
+  }
+}
+
+/* 미디어 쿼리: 테블릿 가로 (768px ~ 1023px) */
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .container {
+    width: 100%;
+  }
+
+  .headerLeft {
+    font-size: 28px;
+  }
+
+  .headerRight {
+    font-size: 16px;
+  }
+
+  .sentence1,
+  .sentence2,
+  .sentence3 {
+    font-size: 16px;
+  }
+
+  .PlanFit .Plan,
+  .PlanFit .Fit {
+    font-size: 70px;
+  }
+
+  .footer div .button {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* 미디어 쿼리: 모바일 가로, 테블릿 (480px ~ 767px) */
+@media screen and (max-width: 767px) and (min-width: 480px) {
+  .container {
+    width: 90%;
+  }
+
+  .headerLeft {
+    font-size: 24px;
+  }
+
+  .headerRight {
+    font-size: 14px;
+  }
+
+  .sentence1,
+  .sentence2,
+  .sentence3 {
+    font-size: 14px;
+  }
+
+  .PlanFit .Plan,
+  .PlanFit .Fit {
+    font-size: 60px;
+  }
+
+  .footer div .button {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* 미디어 쿼리: 모바일 (최대 480px) */
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+    margin: 0;
+  }
+
+  .headerLeft {
+    font-size: 10px;
+  }
+
+  .headerRight {
+    font-size: 10px;
+  }
+
+  .sentence1,
+  .sentence2,
+  .sentence3 {
+    font-size: 8px;
+  }
+
+  .PlanFit .Plan,
+  .PlanFit .Fit {
+    font-size: 20px;
+  }
+
+  .footer div .button {
+    width: 18px;
+    height: 18px;
+  }
+}

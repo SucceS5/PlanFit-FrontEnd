@@ -1,0 +1,161 @@
+html,
+body {
+  margin: 0;
+  height: 100%; /* 화면 전체 높이를 100%로 설정 */
+  width: 100%; /* 화면 전체 너비를 100%로 설정 */
+  display: flex;
+  justify-content: center;
+}
+
+.editForm {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 50%;
+  row-gap: 10px;
+
+  .editHead {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+
+    input {
+      width: 100%;
+      height: 50px;
+      font-size: 18px;
+      background-color: white;
+      border-radius: 5px;
+      border: 1px solid #808080;
+    }
+  }
+
+  .editBottom {
+    width: 30%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: self-end;
+    flex-direction: column;
+    background-color: #00ba91;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+}
+.container {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+  height: 100%;
+  background-color: white;
+  border: 1px solid #e7f2e7;
+
+  .header {
+    width: 100%;
+    height: 20%;
+    background-color: #e7f2e7;
+    border: #e7f2e7;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    .headLeft {
+      width: 15%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .button {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .headRight {
+      width: 30%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      font-size: 1.5em;
+      font-weight: bolder;
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 65%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .mainHead {
+      width: 80%;
+      height: 20%;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      font-size: 1.5em;
+      font-weight: bolder;
+    }
+
+    .mainBody {
+      width: 80%;
+      height: 80%;
+      display: flex;
+      justify-content: start;
+    }
+  }
+
+  .footer {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
+
+    div {
+      width: 20%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .button {
+        width: 30px;
+        height: 30px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.footer div:focus,
+.footer div:hover {
+  background-color: #2c6b56; /* 배경색을 변경 */
+  color: white; /* 글자 색을 하얀색으로 변경 */
+}
+
+.footer div .button {
+  margin-right: 8px;
+  color: inherit; /* 부모의 색상에 맞춰 아이콘 색상을 상속 */
+}
+
+.footer div:hover .button,
+.footer div:focus .button {
+  color: white; /* 아이콘 색을 하얀색으로 변경 */
+}
