@@ -21,6 +21,10 @@ function LoginHome() {
   const likeClick = () => {
     navigate("/Likes");
   };
+
+  const createClick = () => {
+    navigate("/CreateCourse");
+  };
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -41,7 +45,7 @@ function LoginHome() {
         </div>
       </div>
       <div className={style.footer}>
-        <div>
+        <div onClick={createClick}>
           <MdOutlineAddBox className={style.button} />
           코스제작
         </div>
