@@ -1,0 +1,203 @@
+html,
+body {
+  margin: 0;
+  height: 100%; /* 화면 전체 높이를 100%로 설정 */
+  width: 100%; /* 화면 전체 너비를 100%로 설정 */
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+  height: 100%;
+  background-color: white;
+  border: 1px solid #e7f2e7;
+
+  .header {
+    width: 100%;
+    height: 15%;
+    background-color: #e7f2e7;
+    border: #e7f2e7;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .headerTop {
+      width: 90%;
+      height: 50%;
+      display: flex;
+      align-items: end;
+      justify-content: start;
+      font-weight: bolder;
+      font-size: 1.2em;
+    }
+
+    .headerBottom {
+      width: 90%;
+      height: 50%;
+      display: flex;
+      align-items: baseline;
+      justify-content: start;
+      font-weight: bolder;
+      font-size: 1.2em;
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 70%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 20px;
+
+    .mainTop {
+      width: 70%;
+      height: 82%;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      row-gap: 5px;
+
+      .question {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .title {
+          width: 80%;
+          height: 45%;
+          display: flex;
+          justify-content: start;
+          align-items: center;
+        }
+
+        input[type="date"] {
+          width: 330px;
+          height: 40px;
+          border: 1px solid #ccc; /* 테두리 추가 */
+          background-color: white; /* 배경색 설정 */
+          font-size: 1rem; /* 글자 크기 설정 */
+          color: black; /* 글자 색상 설정 */
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        input[type="number"] {
+          width: 330px;
+          height: 40px;
+          border: 1px solid #ccc; /* 테두리 추가 */
+          background-color: white; /* 배경색 설정 */
+          font-size: 1rem; /* 글자 크기 설정 */
+          color: gray; /* 글자 색상 설정 */
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
+        input[type="time"] {
+          width: 150px;
+          height: 40px;
+          border: 1px solid #ccc; /* 테두리 추가 */
+          background-color: white; /* 배경색 설정 */
+          font-size: 1em; /* 글자 크기 설정 */
+          color: gray; /* 글자 색상 설정 */
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      }
+
+      .question1 {
+        width: 90%;
+        height: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .title {
+          width: 90%;
+          height: 45%;
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          margin-bottom: 5px;
+        }
+
+        select {
+          width: 350px;
+          height: 80px;
+          border: 1px solid #ccc; /* 테두리 추가 */
+          background-color: white; /* 배경색 설정 */
+          font-size: 1rem; /* 글자 크기 설정 */
+          color: gray; /* 글자 색상 설정 */
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    .mainBottom {
+      width: 60%;
+      height: 10%;
+      background-color: #2c6b56;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+  }
+
+  .footer {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
+
+    div {
+      width: 20%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .button {
+        width: 30px;
+        height: 30px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.footer div:focus,
+.footer div:hover {
+  background-color: #2c6b56; /* 배경색을 변경 */
+  color: white; /* 글자 색을 하얀색으로 변경 */
+}
+
+.footer div .button {
+  margin-right: 8px;
+  color: inherit; /* 부모의 색상에 맞춰 아이콘 색상을 상속 */
+}
+
+.footer div:hover .button,
+.footer div:focus .button {
+  color: white; /* 아이콘 색을 하얀색으로 변경 */
+}
