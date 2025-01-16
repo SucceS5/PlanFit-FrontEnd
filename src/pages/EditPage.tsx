@@ -17,6 +17,10 @@ function EditPage() {
     navigate("/MyPage");
   };
 
+  const createClick = () => {
+    navigate("/CreateCourse");
+  };
+
   const homeClick = () => {
     navigate("/LoginHome");
   };
@@ -121,7 +125,7 @@ function EditPage() {
       </div>
       <div className={style.footer}>
         {" "}
-        <div>
+        <div onClick={createClick}>
           <MdOutlineAddBox className={style.button} />
           코스제작
         </div>
