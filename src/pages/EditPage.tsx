@@ -10,11 +10,24 @@ import { IoChevronBack } from "react-icons/io5";
 
 function EditPage() {
   const { field } = useParams(); // URL에서 field 파라미터를 가져옴
+
   const navigate = useNavigate();
+
   const backClick = () => {
     navigate("/MyPage");
   };
 
+  const homeClick = () => {
+    navigate("/LoginHome");
+  };
+
+  const myClick = () => {
+    navigate("/MyPage");
+  };
+
+  const likeClick = () => {
+    navigate("/Likes");
+  };
   const renderEditForm = () => {
     switch (field) {
       case "id":
@@ -116,15 +129,15 @@ function EditPage() {
           <RiBillLine className={style.button} />
           포스트
         </div>
-        <div>
+        <div onClick={homeClick}>
           <FiHome className={style.button} />
           플랜핏 홈
         </div>
-        <div>
+        <div onClick={likeClick}>
           <FaRegHeart className={style.button} />
           좋아요
         </div>
-        <div>
+        <div onClick={myClick}>
           <RiAccountCircleLine className={style.button} />
           마이페이지
         </div>

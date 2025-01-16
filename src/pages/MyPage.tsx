@@ -6,6 +6,7 @@ import { FiHome } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { FaChevronRight } from "react-icons/fa";
+import { LuLogOut } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 
 type EditField = "id" | "password" | "profile" | "name" | "birth" | "phone" | "email" | "position";
@@ -17,10 +18,23 @@ function MyPage() {
     navigate("/LoginHome");
   };
 
+  const logoutClick = () => {
+    navigate("/Home");
+  };
+
+  const likeClick = () => {
+    navigate("/Likes");
+  };
+
   const handleEditClick = (field: EditField) => {
     console.log(field); // field가 사용되고 있음을 명시적으로 확인
     navigate(`/edit/${field}`);
   };
+
+  const myClick = () => {
+    alert("이미 마이페이지에 계십니다!");
+  };
+
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -32,6 +46,10 @@ function MyPage() {
           <div className={style.headInfo}>
             <p>OOO 님</p>
             <p>OO세 대학생</p>
+          </div>
+          <div className={style.logOut} onClick={logoutClick}>
+            로그아웃
+            <LuLogOut className={style.icon} />
           </div>
         </div>
       </div>
@@ -101,11 +119,11 @@ function MyPage() {
           <FiHome className={style.button} />
           플랜핏 홈
         </div>
-        <div>
+        <div onClick={likeClick}>
           <FaRegHeart className={style.button} />
           좋아요
         </div>
-        <div>
+        <div onClick={myClick}>
           <RiAccountCircleLine className={style.button} />
           마이페이지
         </div>

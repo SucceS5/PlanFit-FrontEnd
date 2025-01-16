@@ -9,13 +9,18 @@ import { useNavigate } from "react-router-dom";
 
 function LoginHome() {
   const navigate = useNavigate();
+
   const homeClick = () => {
-    alert("이미 홈에서 계십니다!");
+    alert("이미 홈에 계십니다!");
   };
+
   const myClick = () => {
     navigate("/MyPage");
   };
 
+  const likeClick = () => {
+    navigate("/Likes");
+  };
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -48,7 +53,7 @@ function LoginHome() {
           <FiHome className={style.button} />
           플랜핏 홈
         </div>
-        <div>
+        <div onClick={likeClick}>
           <FaRegHeart className={style.button} />
           좋아요
         </div>
