@@ -26,6 +26,10 @@ function MyPage() {
     navigate("/Likes");
   };
 
+  const createClick = () => {
+    navigate("/CreateCourse");
+  };
+
   const handleEditClick = (field: EditField) => {
     console.log(field); // field가 사용되고 있음을 명시적으로 확인
     navigate(`/edit/${field}`);
@@ -107,7 +111,7 @@ function MyPage() {
         </div>
       </div>
       <div className={style.footer}>
-        <div>
+        <div onClick={createClick}>
           <MdOutlineAddBox className={style.button} />
           코스제작
         </div>
