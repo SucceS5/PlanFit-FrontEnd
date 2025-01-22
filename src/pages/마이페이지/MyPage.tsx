@@ -1,5 +1,5 @@
-import style from "../less/MyPage.module.less";
-import profileImg from "../assets/기본프로필.jpg";
+import style from "../../less/마이페이지/MyPage.module.less";
+import profileImg from "../../assets/기본프로필.jpg";
 import { MdOutlineAddBox } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
 import { FiHome } from "react-icons/fi";

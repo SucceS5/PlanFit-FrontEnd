@@ -1,4 +1,4 @@
-import style from "../less/Home.module.less";
+import style from "../../less/홈페이지/Home.module.less";
 import { MdOutlineAddBox } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
 import { FiHome } from "react-icons/fi";

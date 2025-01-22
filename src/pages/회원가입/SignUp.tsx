@@ -1,4 +1,4 @@
-import style from "../less/SignUp.module.less";
+import style from "../../less/회원가입/SignUp.module.less";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 

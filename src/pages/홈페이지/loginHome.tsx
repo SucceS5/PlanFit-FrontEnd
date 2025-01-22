@@ -1,4 +1,4 @@
-import style from "../less/loginHome.module.less";
+import style from "../../less/홈페이지/loginHome.module.less";
 import { MdOutlineAddBox } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
 import { FiHome } from "react-icons/fi";
@@ -25,12 +25,16 @@ function LoginHome() {
   const createClick = () => {
     navigate("/CreateCourse");
   };
+
+  const calClick = () => {
+    navigate("/Calender");
+  };
   return (
     <div className={style.container}>
       <div className={style.header}>
         <div className={style.headerLeft}>PlanFit</div>
         <div className={style.headerRight}>
-          안녕하세요, OO님 <FaRegCalendar className={style.icon} />
+          안녕하세요, OO님 <FaRegCalendar className={style.icon} onClick={calClick} />
         </div>
       </div>
       <div className={style.main}>

@@ -1,4 +1,4 @@
-import style from "../less/Login.module.less";
+import style from "../../less/로그인/Login.module.less";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { RiKakaoTalkFill } from "react-icons/ri";

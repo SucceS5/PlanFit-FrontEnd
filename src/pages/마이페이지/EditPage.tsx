@@ -1,4 +1,4 @@
-import style from "../less/EditPage.module.less";
+import style from "../../less/마이페이지/EditPage.module.less";
 import { useParams } from "react-router-dom";
 import { MdOutlineAddBox } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";

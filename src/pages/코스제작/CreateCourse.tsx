@@ -1,4 +1,4 @@
-import style from "../less/CreateCourse.module.less";
+import style from "../../less/코스제작/CreateCourse.module.less";
 import { MdOutlineAddBox } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
 import { FiHome } from "react-icons/fi";
@@ -6,20 +6,34 @@ import { FaRegHeart } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import cityData from "../data/cities.json";
+import cityData from "../../data/cities.json";
 
+// 데이터 타입 정의: 도시, 구, 동, 위도, 경도
 interface CityData {
-  [city: string]: string[];
+  [city: string]: {
+    [district: string]: {
+      [dong: string]: {
+        // 동마다 위도, 경도 정보
+        latitude: number;
+        longitude: number;
+      };
+    };
+  };
 }
-// 이벤트 타입을 명시적으로 지정
+
 function CreateCourse() {
+  const cityDataTyped: CityData = cityData;
+
+  // State 설정
   const [selectedDate, setSelectedDate] = useState("2025-01-01");
   const [peopleCount, setPeopleCount] = useState(1);
   const [selectedCity, setSelectedCity] = useState<keyof typeof cityData>("서울특별시");
   const [selectedDistrict, setSelectedDistrict] = useState("강남구");
+  const [selectedDong, setSelectedDong] = useState("역삼동"); // Default 동
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("10:00");
-  const cityDataTyped: CityData = cityData; // cityData의 타입을 명시적으로 지정
+
+  const navigate = useNavigate();
 
   // 날짜 변경 처리 함수
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,46 +42,108 @@ function CreateCourse() {
 
   // 사람 수 변경 처리 함수
   const handlePeopleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPeopleCount(Number(event.target.value)); // value를 숫자로 변환
+    setPeopleCount(Number(event.target.value));
   };
 
   // 도시 변경 처리 함수
   const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCity = event.target.value as "서울특별시" | "부산광역시" | "인천광역시" | "대구광역시"; // 여기서 selectedCity 타입을 명시적으로 지정
-    setSelectedCity(selectedCity);
-    // cityDataTyped를 사용하여 구 목록을 가져오기
-    setSelectedDistrict(cityDataTyped[selectedCity][0]); // 첫 번째 구 선택
+    const newCity = event.target.value as keyof typeof cityData;
+    setSelectedCity(newCity);
+
+    // 첫 번째 구 선택
+    const firstDistrict = Object.keys(cityDataTyped[newCity])[0];
+    setSelectedDistrict(firstDistrict);
+
+    // 첫 번째 동을 선택 (동이 있을 경우)
+    const firstDong = Object.keys(cityDataTyped[newCity][firstDistrict])[0];
+    setSelectedDong(firstDong);
   };
+
   // 구 변경 처리 함수
   const handleDistrictChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDistrict(event.target.value);
+    const newDistrict = event.target.value;
+    setSelectedDistrict(newDistrict);
+
+    // 동을 선택 (동이 있을 경우)
+    const firstDong = Object.keys(cityDataTyped[selectedCity][newDistrict])[0];
+    setSelectedDong(firstDong);
   };
 
-  // 시간 변경 처리 함수
-  const handleStartTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setStartTime(event.target.value);
+  // 동 변경 처리 함수
+  const handleDongChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDong(event.target.value);
   };
 
-  const handleEndTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEndTime(event.target.value);
+  // 선택한 지역의 위도, 경도 및 추가 정보를 서버로 전송
+  const sendLocationData = async () => {
+    const selectedLocation = cityDataTyped[selectedCity][selectedDistrict][selectedDong];
+    if (!selectedLocation) {
+      alert("선택한 지역의 정보가 없습니다.");
+      return;
+    }
+
+    const { latitude, longitude } = selectedLocation;
+
+    // 서버로 전송할 데이터 준비
+    const dataToSend = {
+      latitude,
+      longitude,
+      date: selectedDate,
+      peopleCount,
+      startTime,
+      endTime,
+    };
+
+    // 위도와 경도 값 콘솔에 출력 (즉시 확인 가능)
+    console.log(`선택한 지역: ${selectedCity} > ${selectedDistrict} > ${selectedDong}`);
+    console.log(`위도: ${latitude}, 경도: ${longitude}`);
+    console.log(`날짜: ${selectedDate}, 사람 수: ${peopleCount}`);
+    console.log(`시작 시간: ${startTime}, 종료 시간: ${endTime}`);
+
+    try {
+      // axios 대신 fetch로 요청 보내기
+      const response = await fetch("/api/send-location", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("서버 응답:", data);
+      } else {
+        console.error("서버 요청 실패");
+      }
+    } catch (error) {
+      console.error("서버에 데이터 전송 실패:", error);
+    }
   };
 
-  const navigate = useNavigate();
-
+  // 홈 버튼 클릭
   const homeClick = () => {
     navigate("/LoginHome");
   };
 
+  // 좋아요 버튼 클릭
   const likeClick = () => {
     navigate("/Likes");
   };
 
+  // 마이페이지 버튼 클릭
   const myClick = () => {
     navigate("/MyPage");
   };
 
+  // 코스 제작 버튼 클릭
   const createClick = () => {
     alert("이미 코스제작에 계십니다!");
+  };
+
+  // '다음' 버튼 클릭
+  const nextClick = () => {
+    sendLocationData(); // 위도와 경도를 서버에 전송
   };
 
   return (
@@ -90,7 +166,7 @@ function CreateCourse() {
             <input type="number" value={peopleCount} onChange={handlePeopleCountChange} min="1" max="100" />
           </div>
 
-          {/* 지역 선택 (특별시/광역시) 및 구*/}
+          {/* 지역 선택 (특별시/광역시) -> 구 -> 동 */}
           <div className={style.question1}>
             <div className={style.title}>Q. 지역을 선택해주세요.</div>
             <select value={selectedCity} onChange={handleCityChange}>
@@ -101,9 +177,16 @@ function CreateCourse() {
               ))}
             </select>
             <select value={selectedDistrict} onChange={handleDistrictChange}>
-              {cityData[selectedCity].map((district: string) => (
+              {Object.keys(cityDataTyped[selectedCity]).map((district) => (
                 <option key={district} value={district}>
                   {district}
+                </option>
+              ))}
+            </select>
+            <select value={selectedDong} onChange={handleDongChange}>
+              {Object.keys(cityDataTyped[selectedCity][selectedDistrict]).map((dong) => (
+                <option key={dong} value={dong}>
+                  {dong}
                 </option>
               ))}
             </select>
@@ -113,14 +196,19 @@ function CreateCourse() {
           <div className={style.question}>
             <div className={style.title}>Q. 만나는 시간을 설정해주세요</div>
             <div>
-              <input type="time" value={startTime} onChange={handleStartTimeChange} />
+              <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
               ~
-              <input type="time" value={endTime} onChange={handleEndTimeChange} />
+              <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
             </div>
           </div>
         </div>
-        <div className={style.mainBottom}>다음</div>
+
+        {/* '다음' 버튼 대신 mainBottom div 클릭 시 위도, 경도 서버로 전송 */}
+        <div className={style.mainBottom} onClick={nextClick}>
+          다음
+        </div>
       </div>
+
       <div className={style.footer}>
         <div onClick={createClick}>
           <MdOutlineAddBox className={style.button} />

@@ -1,4 +1,4 @@
-import style from "../less/Likes.module.less";
+import style from "../../less/좋아요/Likes.module.less";
 import { MdOutlineAddBox } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
 import { FiHome } from "react-icons/fi";

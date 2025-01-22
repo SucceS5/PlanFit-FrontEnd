@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import LoginHome from "./pages/loginHome";
-import MyPage from "./pages/MyPage";
-import EditPage from "./pages/EditPage";
-import Likes from "./pages/Likes";
-import CreateCourse from "./pages/CreateCourse";
+import Home from "./pages/홈페이지/Home";
+import Login from "./pages/로그인/Login";
+import SignUp from "./pages/회원가입/SignUp";
+import LoginHome from "./pages/홈페이지/loginHome";
+import MyPage from "./pages/마이페이지/MyPage";
+import EditPage from "./pages/마이페이지/EditPage";
+import Likes from "./pages/좋아요/Likes";
+import CreateCourse from "./pages/코스제작/CreateCourse";
+import Calender from "./pages/캘린더/Calender";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/edit/:field" element={<EditPage />} />
         <Route path="/Likes" element={<Likes />} />
         <Route path="/CreateCourse" element={<CreateCourse />} />
+        <Route path="/Calender" element={<Calender />} />
       </Routes>
     </Router>
   );
