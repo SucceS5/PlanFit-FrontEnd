@@ -72,6 +72,12 @@ function Calender() {
     setCurrentDate(newDate);
   };
 
+  // 날짜를 선택했을 때 해당 날짜 정보를 SelectDay로 전달
+  const selectDay = (day: number) => {
+    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    navigate("/SelectDay", { state: { selectedDate } }); // 날짜를 state로 전달
+  };
+
   const navigate = useNavigate();
 
   const createClick = () => {
@@ -89,6 +95,7 @@ function Calender() {
   const myClick = () => {
     navigate("/MyPage");
   };
+
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -120,7 +127,11 @@ function Calender() {
               {getDaysInMonth().map((week, weekIndex) => (
                 <div key={weekIndex} className={style.week}>
                   {week.map((dayObj, dayIndex) => (
-                    <div key={dayIndex} className={`${style.day} ${dayObj.isCurrentMonth ? "" : style.inactive}`}>
+                    <div
+                      key={dayIndex}
+                      className={`${style.day} ${dayObj.isCurrentMonth ? "" : style.inactive}`}
+                      onClick={() => dayObj.isCurrentMonth && selectDay(dayObj.day)} // 날짜 클릭 시 선택
+                    >
                       {dayObj.day || ""}
                     </div>
                   ))}

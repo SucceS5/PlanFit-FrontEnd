@@ -8,6 +8,7 @@ import EditPage from "./pages/마이페이지/EditPage";
 import Likes from "./pages/좋아요/Likes";
 import CreateCourse from "./pages/코스제작/CreateCourse";
 import Calender from "./pages/캘린더/Calender";
+import SelectDay from "./pages/캘린더/SelectDay";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/Likes" element={<Likes />} />
         <Route path="/CreateCourse" element={<CreateCourse />} />
         <Route path="/Calender" element={<Calender />} />
+        <Route path="/SelectDay" element={<SelectDay />} />
       </Routes>
     </Router>
   );
