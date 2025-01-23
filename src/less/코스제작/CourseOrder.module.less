@@ -25,26 +25,34 @@ body {
     border: #c6f8f9;
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
 
-    .headerTop {
-      width: 90%;
-      height: 50%;
+    .headerLeft {
+      width: 10%;
+      height: 100%;
       display: flex;
-      align-items: end;
-      justify-content: start;
-      font-weight: bolder;
+      justify-content: end;
+      align-items: center;
+
+      .icon {
+        width: 2em;
+        height: 2em;
+        cursor: pointer;
+      }
+    }
+    .headerCenter {
+      width: 80%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
       font-size: 1.2em;
     }
 
-    .headerBottom {
-      width: 90%;
-      height: 50%;
-      display: flex;
-      align-items: baseline;
-      justify-content: start;
-      font-weight: bolder;
-      font-size: 1.2em;
+    p {
+      width: 10%;
+      height: 100%;
     }
   }
 
@@ -56,105 +64,75 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    row-gap: 20px;
+    row-gap: 0.5em;
 
-    .mainTop {
-      width: 70%;
-      height: 82%;
-      background-color: white;
+    .mainBody {
+      width: 95%;
+      height: 85%;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       flex-direction: column;
-      row-gap: 5px;
+      row-gap: 0.5em;
 
-      .question {
-        width: 100%;
+      .courseName {
+        width: 80%;
         height: 20%;
         display: flex;
+        align-items: start;
         justify-content: center;
-        align-items: center;
         flex-direction: column;
 
-        .title {
-          width: 80%;
-          height: 45%;
+        p {
+          width: 90%;
+          height: 10%;
           display: flex;
-          justify-content: start;
           align-items: center;
+          justify-content: start;
+          font-size: 1em;
+          color: #a0a0a0;
         }
 
-        input[type="date"] {
-          width: 21em;
+        input {
+          width: 96%;
           height: 3em;
-          border: 1px solid #ccc; /* 테두리 추가 */
-          background-color: white; /* 배경색 설정 */
-          font-size: 1rem; /* 글자 크기 설정 */
-          color: black; /* 글자 색상 설정 */
-          padding-left: 0.3em;
-          padding-right: 0.3em;
-        }
-        input[type="number"] {
-          width: 21em;
-          height: 2.5em;
-          border: 1px solid #ccc; /* 테두리 추가 */
-          background-color: white; /* 배경색 설정 */
-          font-size: 1rem; /* 글자 크기 설정 */
-          color: gray; /* 글자 색상 설정 */
-          padding-left: 0.3em;
-          padding-right: 0.3em;
-        }
-
-        input[type="time"] {
-          width: 12em;
-          height: 3em;
-          border: 1px solid #ccc; /* 테두리 추가 */
-          background-color: white; /* 배경색 설정 */
-          font-size: 1em; /* 글자 크기 설정 */
-          color: gray; /* 글자 색상 설정 */
-          padding-left: 0.3em;
-          padding-right: 0.3em;
+          padding: 0.5em;
+          background-color: #c6f8f9;
+          border: none;
         }
       }
-
-      .question1 {
-        width: 90%;
-        height: 45%;
+      .courseOrder {
+        width: 80%;
+        height: 70%;
         display: flex;
+        align-items: start;
         justify-content: center;
-        align-items: center;
         flex-direction: column;
 
-        .title {
+        p {
           width: 90%;
-          height: 45%;
+          height: 5%;
           display: flex;
-          justify-content: start;
           align-items: center;
-          margin-bottom: 0;
+          justify-content: start;
+          font-size: 1em;
+          color: #a0a0a0;
         }
-
-        select {
-          width: 22em;
-          height: 4em;
-          border: 1px solid #ccc; /* 테두리 추가 */
-          background-color: white; /* 배경색 설정 */
-          font-size: 1rem; /* 글자 크기 설정 */
-          color: gray; /* 글자 색상 설정 */
-          margin-bottom: 5px;
+        .order {
+          width: 100%;
+          height: 98%;
         }
       }
     }
 
-    .mainBottom {
-      width: 60%;
+    .mainButton {
+      width: 40%;
       height: 10%;
-      background-color: #a0a0a0;
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: #a0a0a0;
       color: white;
-      font-size: 1.2em;
       cursor: pointer;
     }
   }
@@ -200,4 +178,10 @@ body {
 .footer div:hover .button,
 .footer div:focus .button {
   color: white; /* 아이콘 색을 하얀색으로 변경 */
+}
+
+.headerBottom p:focus,
+.headerBottom p:hover {
+  background-color: #00dcdb;
+  color: white;
 }

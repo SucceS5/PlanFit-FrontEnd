@@ -144,6 +144,7 @@ function CreateCourse() {
   // '다음' 버튼 클릭
   const nextClick = () => {
     sendLocationData(); // 위도와 경도를 서버에 전송
+    navigate("/CourseResult");
   };
 
   return (

@@ -1,48 +1,30 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import style from "../../less/캘린더/SelectDay.module.less";
+import style from "../../less/코스제작/CourseSave.module.less";
 import { MdOutlineAddBox } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
 import { FiHome } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
-import { BsCaretLeftFill } from "react-icons/bs";
+import { IoChevronBackOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-const formatDate = (date: Date) => {
-  const day = date.getDate();
-  const month = date.toLocaleString("default", { month: "long" }).toUpperCase();
-  const year = date.getFullYear();
-
-  const suffix = ["th", "st", "nd", "rd"][
-    day % 10 > 3 ? 0 : day % 100 === 11 || day % 100 === 12 || day % 100 === 13 ? 0 : day % 10
-  ];
-
-  return `${day}${suffix} ${month}, ${year}`;
-};
-
-function SelectDay() {
-  const location = useLocation();
+function CourseSave() {
   const navigate = useNavigate();
-  const { selectedDate } = location.state || {}; // 날짜 정보 받기
-
-  const createClick = () => {
-    navigate("/CreateCourse");
-  };
 
   const homeClick = () => {
     navigate("/LoginHome");
   };
-
   const likeClick = () => {
     navigate("/Likes");
   };
-
   const myClick = () => {
     navigate("/MyPage");
   };
-
+  const createClick = () => {
+    navigate("/CreateCourse");
+  };
   const backClick = () => {
-    navigate("/Calender");
+    navigate("/CourseOrder");
   };
 
   const positions = [
@@ -63,17 +45,20 @@ function SelectDay() {
       latlng: { lat: 33.451393, lng: 126.570738 },
     },
   ];
+
   return (
     <div className={style.container}>
       <div className={style.header}>
         <div className={style.headerLeft}>
-          <BsCaretLeftFill className={style.icon} onClick={backClick} />
+          <IoChevronBackOutline className={style.icon} onClick={backClick} />
         </div>
-        <div className={style.headerCenter}>{selectedDate ? formatDate(selectedDate) : ""}</div>
-        <div className={style.headerRight}></div>
+        <div className={style.headerCenter}>코스 일정 최종 확인 후 저장하세요</div>
+        <p />
       </div>
       <div className={style.main}>
-        <div className={style.mainTop}>
+        <div className={style.mainTop}>코스 이름</div>
+        <div className={style.mainBody}>
+          {" "}
           <Map center={{ lat: 33.450701, lng: 126.570667 }} style={{ width: "100%", height: "100%" }} level={4}>
             {positions.map((position, index) => (
               <MapMarker
@@ -91,7 +76,13 @@ function SelectDay() {
             ))}
           </Map>
         </div>
-        <div className={style.mainBottom}></div>
+        <div className={style.mainBottom}>
+          <div className={style.info}>일정 정보</div>
+          <div className={style.button}>
+            <p>캘린더 저장</p>
+            <p>포스팅</p>
+          </div>
+        </div>
       </div>
       <div className={style.footer}>
         <div onClick={createClick}>
@@ -119,4 +110,4 @@ function SelectDay() {
   );
 }
 
-export default SelectDay;
+export default CourseSave;
