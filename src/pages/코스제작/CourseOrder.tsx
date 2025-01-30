@@ -28,14 +28,21 @@ function CourseOrder() {
   const nextClick = () => {
     navigate("/CourseSave");
   };
+  const progressPercentage = 80; // 진행도를 항상 80%로 설정
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <div className={style.headerLeft}>
-          <IoChevronBackOutline className={style.icon} onClick={backClick} />
+        <div className={style.headerTop}>
+          <div className={style.headerLeft}>
+            <IoChevronBackOutline className={style.icon} onClick={backClick} />
+          </div>
+          <div className={style.headerCenter}>코스의 이름과 순서를 지정해보세요</div>
+          <p />
         </div>
-        <div className={style.headerCenter}>코스의 이름과 순서를 지정해보세요</div>
-        <p />
+        <div className={style.progressBar}>
+          {" "}
+          <div className={style.innerProgress} style={{ width: `${progressPercentage}%` }} />
+        </div>
       </div>
       <div className={style.main}>
         <div className={style.mainBody}>

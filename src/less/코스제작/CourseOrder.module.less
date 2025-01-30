@@ -25,34 +25,59 @@ body {
     border: #c6f8f9;
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
 
-    .headerLeft {
-      width: 10%;
-      height: 100%;
+    .headerTop {
+      width: 100%;
+      height: 80%;
       display: flex;
-      justify-content: end;
       align-items: center;
+      flex-direction: row;
 
-      .icon {
-        width: 2em;
-        height: 2em;
-        cursor: pointer;
+      .headerLeft {
+        width: 10%;
+        height: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+
+        .icon {
+          width: 2em;
+          height: 2em;
+          cursor: pointer;
+        }
+      }
+      .headerCenter {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+
+      p {
+        width: 10%;
+        height: 100%;
       }
     }
-    .headerCenter {
-      width: 80%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      font-size: 1.2em;
-    }
 
-    p {
-      width: 10%;
-      height: 100%;
+    .progressBar {
+      width: 90%;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      background-color: #f3f4f6; /* 배경 색상, 기존 bg-gray-100을 반영 */
+      overflow: hidden;
+      border-radius: 5em;
+
+      .innerProgress {
+        height: 100%;
+        background-color: #3b82f6; /* bg-blue-500 색상 */
+        transition: width 0.3s ease-in-out;
+      }
     }
   }
 

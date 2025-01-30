@@ -28,7 +28,7 @@ function CourseResult() {
   const nextClick = () => {
     navigate("/CourseEdit");
   };
-
+  const progressPercentage = 40; // 진행도를 항상 40%로 설정
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -38,6 +38,10 @@ function CourseResult() {
           </div>
           <div className={style.topRight}>장소를 선택해주세요</div>
           <p />
+        </div>
+        <div className={style.progressBar}>
+          {" "}
+          <div className={style.innerProgress} style={{ width: `${progressPercentage}%` }} />
         </div>
         <div className={style.headerBottom}>
           <p>맛집</p>

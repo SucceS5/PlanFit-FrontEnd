@@ -29,7 +29,7 @@ body {
 
     .headerTop {
       width: 90%;
-      height: 50%;
+      height: 40%;
       display: flex;
       align-items: end;
       justify-content: start;
@@ -39,12 +39,29 @@ body {
 
     .headerBottom {
       width: 90%;
-      height: 50%;
+      height: 40%;
       display: flex;
       align-items: baseline;
       justify-content: start;
       font-weight: bolder;
       font-size: 1.2em;
+    }
+
+    .progressBar {
+      width: 90%;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      background-color: #f3f4f6; /* 배경 색상, 기존 bg-gray-100을 반영 */
+      overflow: hidden;
+      border-radius: 5em;
+
+      .innerProgress {
+        height: 100%;
+        background-color: #3b82f6; /* bg-blue-500 색상 */
+        transition: width 0.3s ease-in-out;
+      }
     }
   }
 

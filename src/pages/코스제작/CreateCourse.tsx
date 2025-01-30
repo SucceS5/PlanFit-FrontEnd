@@ -30,8 +30,6 @@ function CreateCourse() {
   const [selectedCity, setSelectedCity] = useState<keyof typeof cityData>("서울특별시");
   const [selectedDistrict, setSelectedDistrict] = useState("강남구");
   const [selectedDong, setSelectedDong] = useState("역삼동"); // Default 동
-  const [startTime, setStartTime] = useState("09:00");
-  const [endTime, setEndTime] = useState("10:00");
 
   const navigate = useNavigate();
 
@@ -90,15 +88,12 @@ function CreateCourse() {
       longitude,
       date: selectedDate,
       peopleCount,
-      startTime,
-      endTime,
     };
 
     // 위도와 경도 값 콘솔에 출력 (즉시 확인 가능)
     console.log(`선택한 지역: ${selectedCity} > ${selectedDistrict} > ${selectedDong}`);
     console.log(`위도: ${latitude}, 경도: ${longitude}`);
     console.log(`날짜: ${selectedDate}, 사람 수: ${peopleCount}`);
-    console.log(`시작 시간: ${startTime}, 종료 시간: ${endTime}`);
 
     try {
       // axios 대신 fetch로 요청 보내기
@@ -147,11 +142,16 @@ function CreateCourse() {
     navigate("/CourseResult");
   };
 
+  const progressPercentage = 20; // 진행도를 항상 20%로 설정
   return (
     <div className={style.container}>
       <div className={style.header}>
         <div className={style.headerTop}>누구와 만나시나요?</div>
         <div className={style.headerBottom}>해당 정보를 모두 선택해주세요.</div>
+        <div className={style.progressBar}>
+          {" "}
+          <div className={style.innerProgress} style={{ width: `${progressPercentage}%` }} />
+        </div>
       </div>
       <div className={style.main}>
         <div className={style.mainTop}>
@@ -191,16 +191,6 @@ function CreateCourse() {
                 </option>
               ))}
             </select>
-          </div>
-
-          {/* 시간 선택 */}
-          <div className={style.question}>
-            <div className={style.title}>Q. 만나는 시간을 설정해주세요</div>
-            <div>
-              <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
-              ~
-              <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
-            </div>
           </div>
         </div>
 

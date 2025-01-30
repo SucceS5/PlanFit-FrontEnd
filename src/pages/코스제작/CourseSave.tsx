@@ -45,15 +45,21 @@ function CourseSave() {
       latlng: { lat: 33.451393, lng: 126.570738 },
     },
   ];
-
+  const progressPercentage = 100; // 진행도를 항상 100%로 설정
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <div className={style.headerLeft}>
-          <IoChevronBackOutline className={style.icon} onClick={backClick} />
+        <div className={style.headerTop}>
+          <div className={style.headerLeft}>
+            <IoChevronBackOutline className={style.icon} onClick={backClick} />
+          </div>
+          <div className={style.headerCenter}>코스 일정 최종 확인 후 저장하세요</div>
+          <p />
         </div>
-        <div className={style.headerCenter}>코스 일정 최종 확인 후 저장하세요</div>
-        <p />
+        <div className={style.progressBar}>
+          {" "}
+          <div className={style.innerProgress} style={{ width: `${progressPercentage}%` }} />
+        </div>
       </div>
       <div className={style.main}>
         <div className={style.mainTop}>코스 이름</div>
