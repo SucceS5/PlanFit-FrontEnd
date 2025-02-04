@@ -66,7 +66,7 @@ function CourseSave() {
         <div className={style.mainBody}>
           {" "}
           <Map center={{ lat: 33.450701, lng: 126.570667 }} style={{ width: "100%", height: "100%" }} level={4}>
-            {positions.map((position, index) => (
+            {positions.map((position) => (
               <MapMarker
                 key={`${position.title}-${position.latlng}`}
                 position={position.latlng} // 마커를 표시할 위치
