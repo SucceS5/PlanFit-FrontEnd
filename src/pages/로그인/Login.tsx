@@ -3,10 +3,13 @@ import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
-import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
+  const [loginId, setLoginId] = useState("");
+  const [password, setPassword] = useState("");
 
   const backClick = () => {
     navigate("/Home");
@@ -16,12 +19,27 @@ function Login() {
     navigate("/SignUp");
   };
 
-  const loginClick = () => {
-    navigate("/LoginHome");
+  const loginClick = async () => {
+    try {
+      const response = await axios.post("http://www.junwatson.site:8080/api/auth/login", {
+        loginId,
+        password,
+      });
+
+      if (response.status === 200) {
+        // 로그인 성공 시 토큰을 로컬 스토리지에 저장
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+
+        // 로그인 성공 시 홈 화면으로 리다이렉트
+        navigate("/LoginHome");
+      }
+    } catch (error) {
+      console.error("로그인 실패", error);
+    }
   };
 
   const kakaoLoginClick = () => {
-    // 카카오 로그인 페이지로 리다이렉트
     const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=0e3707b926e733cdc0fd2f4acfe48ed6&redirect_uri=http://localhost:5173/auth/kakao/callback&response_type=code`;
     window.location.href = kakaoLoginUrl;
   };
@@ -31,63 +49,6 @@ function Login() {
     window.location.href = googleLoginUrl;
   };
 
-  useEffect(() => {
-    // URL에서 'code' 파라미터 추출
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-
-    if (code) {
-      // 인증 코드가 있다면 서버로 전송하여 액세스 토큰을 받음
-      fetch("/api/auth/kakao", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code }), // 서버로 인증 코드 전송
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            // 로그인 성공 시 홈 화면으로 리다이렉트
-            navigate("/LoginHome");
-          } else {
-            console.error("로그인 실패");
-          }
-        })
-        .catch((error) => {
-          console.error("서버와의 통신 오류", error);
-        });
-    }
-  }, [navigate]);
-
-  useEffect(() => {
-    // URL에서 'code' 파라미터 추출
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-
-    if (code) {
-      // 인증 코드가 있다면 서버로 전송하여 액세스 토큰을 받음
-      fetch("/api/auth/google", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code }), // 서버로 인증 코드 전송
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            // 로그인 성공 시 홈 화면으로 리다이렉트
-            navigate("/LoginHome");
-          } else {
-            console.error("로그인 실패");
-          }
-        })
-        .catch((error) => {
-          console.error("서버와의 통신 오류", error);
-        });
-    }
-  }, [navigate]);
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -98,8 +59,20 @@ function Login() {
       </div>
       <div className={style.main}>
         <div className={style.joinbox}>
-          <input type="text" placeholder="아이디" id="id" />
-          <input type="text" placeholder="비밀번호" id="password" />
+          <input
+            type="text"
+            placeholder="아이디"
+            id="id"
+            value={loginId}
+            onChange={(e) => setLoginId(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="비밀번호"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <p onClick={loginClick}>로그인</p>
         <div className={style.findInfo}>계정찾기</div>

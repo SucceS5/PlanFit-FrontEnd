@@ -1,13 +1,17 @@
 import style from "../../less/코스제작/CourseEdit.module.less";
-import { MdOutlineAddBox } from "react-icons/md";
+import { MdOutlineAddBox, MdDeleteForever } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
 import { FiHome } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoChevronBackOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 function CourseEdit() {
+  const location = useLocation();
+  const { places } = location.state || {}; // 전달된 장소 정보
+
   const navigate = useNavigate();
 
   const homeClick = () => {
@@ -28,7 +32,17 @@ function CourseEdit() {
   const nextClick = () => {
     navigate("/CourseOrder");
   };
-  const progressPercentage = 60; // 진행도를 항상 60%로 설정
+
+  const progressPercentage = 60; // 진행도 설정
+
+  // 선택된 장소 리스트 상태로 관리
+  const [selectedPlaces, setSelectedPlaces] = useState(places || []);
+
+  // 삭제 핸들러
+  const handleDelete = (id: number) => {
+    setSelectedPlaces((prevPlaces) => prevPlaces.filter((place) => place.id !== id));
+  };
+
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -40,16 +54,33 @@ function CourseEdit() {
           <p />
         </div>
         <div className={style.progressBar}>
-          {" "}
           <div className={style.innerProgress} style={{ width: `${progressPercentage}%` }} />
         </div>
       </div>
+
       <div className={style.main}>
-        <div className={style.mainBody}></div>
+        <div className={style.mainBody}>
+          {/* 선택된 장소 출력 */}
+          {selectedPlaces.map((place) => (
+            <div key={place.id} className={style.addResult}>
+              <div className={style.resultImg}>
+                <img src={place.img} alt={place.name} width="100%" height="100%" />
+              </div>
+              <div className={style.resultInfo}>
+                <div className={style.resultAddress}>{place.address}</div>
+                <div className={style.resultName}>{place.name}</div>
+              </div>
+              <div className={style.delete} onClick={() => handleDelete(place.id)}>
+                <MdDeleteForever className={style.icon} />
+              </div>
+            </div>
+          ))}
+        </div>
         <div className={style.mainButton} onClick={nextClick}>
           다음
         </div>
       </div>
+
       <div className={style.footer}>
         <div onClick={createClick}>
           <MdOutlineAddBox className={style.button} />
