@@ -26,6 +26,10 @@ function LoginHome() {
     navigate("/CreateCourse");
   };
 
+  const postClick = () => {
+    navigate("/Post");
+  };
+
   const calClick = () => {
     navigate("/Calender");
   };
@@ -53,7 +57,7 @@ function LoginHome() {
           <MdOutlineAddBox className={style.button} />
           코스제작
         </div>
-        <div>
+        <div onClick={postClick}>
           <RiBillLine className={style.button} />
           포스트
         </div>

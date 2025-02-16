@@ -13,13 +13,15 @@ import CourseResult from "./pages/코스제작/CourseResult";
 import CourseEdit from "./pages/코스제작/CourseEdit";
 import CourseOrder from "./pages/코스제작/CourseOrder";
 import CourseSave from "./pages/코스제작/CourseSave";
+import PostList from "./pages/포스트/Post";
+import PostDetail from "./pages/포스트/PostDetail";
 
 function App() {
   return (
     <Router>
       <Routes>
         /* 홈페이지 */
-        <Route path="/" element={<LoginHome />} />
+        <Route path="/" element={<Home />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/LoginHome" element={<LoginHome />} />
         /* 로그인 및 회원가입 */
@@ -40,6 +42,8 @@ function App() {
         <Route path="/CourseOrder" element={<CourseOrder />} />
         <Route path="/CourseSave" element={<CourseSave />} />
         /* 포스트 */
+        <Route path="/Post" element={<PostList />} />
+        <Route path="/Post/:id" element={<PostDetail />} />
       </Routes>
     </Router>
   );
