@@ -19,23 +19,32 @@ function Login() {
     navigate("/SignUp");
   };
 
+  // 예시: 로그인 실패 시 회원가입 안내
   const loginClick = async () => {
     try {
-      const response = await axios.post("http://www.junwatson.site:8080/api/auth/login", {
-        loginId,
-        password,
-      });
+      const response = await axios.post(
+        "http://www.junwatson.site:8080/api/auth/login",
+        { loginId, password },
+        { headers: { "Content-Type": "application/json;charset=utf-8" } }
+      );
 
       if (response.status === 200) {
-        // 로그인 성공 시 토큰을 로컬 스토리지에 저장
+        // 로그인 성공 시 토큰 저장
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
-
-        // 로그인 성공 시 홈 화면으로 리다이렉트
         navigate("/LoginHome");
       }
     } catch (error) {
-      console.error("로그인 실패", error);
+      if (error.response) {
+        // 서버에서 반환한 메시지 처리
+        if (error.response.status === 403) {
+          alert("로그인 실패: 아이디가 존재하지 않거나 비밀번호가 틀립니다. 회원가입을 먼저 진행해 주세요.");
+        } else {
+          alert("로그인 실패: 아이디와 비밀번호를 확인해주세요.");
+        }
+      } else {
+        alert("네트워크 오류 발생");
+      }
     }
   };
 
@@ -75,7 +84,7 @@ function Login() {
           />
         </div>
         <p onClick={loginClick}>로그인</p>
-        <div className={style.findInfo}>계정찾기</div>
+        <div className={style.findInfo}></div>
         <div className={style.otherLogin}>
           <p className={style.kakao} onClick={kakaoLoginClick}>
             <RiKakaoTalkFill className={style.logo} />

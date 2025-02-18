@@ -19,7 +19,7 @@ function App() {
     <Router>
       <Routes>
         /* 홈페이지 */
-        <Route path="/" element={<LoginHome />} />
+        <Route path="/" element={<Home />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/LoginHome" element={<LoginHome />} />
         /* 로그인 및 회원가입 */

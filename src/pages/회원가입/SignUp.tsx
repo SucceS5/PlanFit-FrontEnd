@@ -1,8 +1,8 @@
-import style from "../../less/회원가입/SignUp.module.less";
-import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import style from "../../less/회원가입/SignUp.module.less";
+import { IoChevronBack } from "react-icons/io5";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -13,36 +13,53 @@ function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [birthOfDate, setBirthOfDate] = useState("");
   const [identity, setIdentity] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [idAvailability, setIdAvailability] = useState(""); // 아이디 중복 확인 상태
 
   // 뒤로 가기 버튼 클릭 시
   const backClick = () => {
     navigate("/Login");
   };
 
+  // 아이디 중복 체크 함수 (실시간)
+  const checkIdAvailability = async (id) => {
+    if (!id) {
+      setIdAvailability(""); // 아이디가 없으면 상태 초기화
+      return;
+    }
+
+    try {
+      const response = await axios.get(`http://www.junwatson.site:8080/api/auth/check-id?loginId=${id}`);
+
+      if (response.status === 200 && response.data.available) {
+        setIdAvailability("아이디 사용 가능");
+      } else {
+        setIdAvailability("이미 사용 중인 아이디입니다.");
+      }
+    } catch (error) {
+      console.error("아이디 중복 체크 실패", error);
+      setIdAvailability("아이디 중복 체크 실패");
+    }
+  };
+
   // 회원가입 클릭 시
   const signUpClick = async () => {
+    // 아이디 중복 체크
+    if (idAvailability !== "아이디 사용 가능") {
+      setErrorMessage("아이디 중복 확인을 해주세요.");
+      return;
+    }
+
     try {
-      // API 호출
-      const response = await axios.post(
-        "http://www.junwatson.site:8080/api/auth/signup",
-        {
-          name, // 사용자명
-          loginId, // 로그인 아이디
-          password, // 비밀번호
-          email, // 이메일
-          phoneNumber, // 전화번호 (선택)
-          birthOfDate, // 생년월일 (선택)
-          identity, // 신분 (선택)
-          // profilePhoto,  // 프로필 사진 (선택 사항)
-          // photoType      // 프로필 사진의 타입 (선택 사항)
-        },
-        {
-          headers: {
-            "Content-Type": "application/json;charset=utf-8", // Content-Type 헤더 설정
-            // "Authorization": `Bearer ${accessToken}`,  // 필요한 경우 Authorization 헤더 추가 (로그인 후 발급된 토큰)
-          },
-        }
-      );
+      const response = await axios.post("http://www.junwatson.site:8080/api/auth/signup", {
+        name,
+        loginId,
+        password,
+        email,
+        phoneNumber,
+        birthOfDate,
+        identity,
+      });
 
       if (response.status === 200) {
         console.log("회원가입 성공", response.data);
@@ -50,14 +67,8 @@ function SignUp() {
       } else {
         console.error("회원가입 실패", response.status);
       }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        // AxiosError 타입으로 안전하게 처리
-        console.error("회원가입 중 오류 발생", error.response || error);
-      } else {
-        // AxiosError가 아닌 다른 타입의 에러인 경우 처리
-        console.error("알 수 없는 오류 발생", error);
-      }
+    } catch (error) {
+      console.error("회원가입 중 오류 발생", error);
     }
   };
 
@@ -67,17 +78,30 @@ function SignUp() {
         <div className={style.headLeft}>
           <IoChevronBack className={style.button} onClick={backClick} />
         </div>
-        <div className={style.headRight}>로그인/회원가입</div>
+        <div className={style.headRight}>회원가입</div>
       </div>
       <div className={style.main}>
         <div className={style.signUpList}>
-          <input
-            type="text"
-            placeholder="아이디"
-            id="id"
-            value={loginId}
-            onChange={(e) => setLoginId(e.target.value)}
-          />
+          <div className={style.inputGroup}>
+            <input
+              type="text"
+              placeholder="아이디"
+              id="id"
+              value={loginId}
+              onChange={(e) => {
+                setLoginId(e.target.value);
+                checkIdAvailability(e.target.value); // 아이디 변경 시 실시간 체크
+              }}
+            />
+            <div className={style.idCheckMessage}>
+              {idAvailability && (
+                <span className={idAvailability === "아이디 사용 가능" ? style.success : style.error}>
+                  {idAvailability}
+                </span>
+              )}
+            </div>
+          </div>
+
           <input
             type="password"
             placeholder="비밀번호"
@@ -85,7 +109,7 @@ function SignUp() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input type="text" placeholder="회원명" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input type="text" placeholder="이름" id="name" value={name} onChange={(e) => setName(e.target.value)} />
           <input
             type="text"
             placeholder="전화번호"
@@ -115,6 +139,10 @@ function SignUp() {
             onChange={(e) => setIdentity(e.target.value)}
           />
         </div>
+
+        {/* 오류 메시지 표시 */}
+        {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
+
         <div className={style.signUp} onClick={signUpClick}>
           회원가입
         </div>
