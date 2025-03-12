@@ -1,0 +1,57 @@
+[33ma749e9f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: commit (merge): rescue 브랜치를 main에 합병
+[33me5b7fb3[m HEAD@{1}: checkout: moving from rescue to main
+[33m3ecf5a1[m[33m ([m[1;31morigin/rescue[m[33m, [m[1;32mrescue[m[33m)[m HEAD@{2}: checkout: moving from main to rescue
+[33me5b7fb3[m HEAD@{3}: commit: 로그인 간단한 수정
+[33mb5e7b39[m[33m ([m[1;31morigin/rescue-code[m[33m)[m HEAD@{4}: pull origin main: Fast-forward
+[33mc41645d[m HEAD@{5}: pull origin main: Merge made by the 'ort' strategy.
+[33m6c42e49[m[33m ([m[1;32mfeature/courseAdd[m[33m)[m HEAD@{6}: checkout: moving from main to main
+[33m6c42e49[m[33m ([m[1;32mfeature/courseAdd[m[33m)[m HEAD@{7}: merge feature/courseAdd: Fast-forward
+[33m275a810[m HEAD@{8}: checkout: moving from feature/courseAdd to main
+[33m6c42e49[m[33m ([m[1;32mfeature/courseAdd[m[33m)[m HEAD@{9}: commit: 코스제작 추가 수정
+[33m275a810[m HEAD@{10}: checkout: moving from main to feature/courseAdd
+[33m275a810[m HEAD@{11}: checkout: moving from feature/courseAdd to main
+[33m275a810[m HEAD@{12}: checkout: moving from main to feature/courseAdd
+[33m275a810[m HEAD@{13}: commit: 로그인 리다이렉트 주소 생성
+[33m0dfba0b[m HEAD@{14}: commit: 코스제작 페이지에 progressBar 추가
+[33m1c621e9[m HEAD@{15}: commit: 네비게이션바 비율 수정
+[33m141695f[m HEAD@{16}: commit: 코스제작 페이지 기능 추가
+[33m6d6ce5f[m HEAD@{17}: commit: 페이지별로 구분 쉽게 분리
+[33m5c9bc97[m HEAD@{18}: commit: 캘린더 카카오맵 api 연결
+[33m6bd412d[m HEAD@{19}: commit: 전체적인 색상과 파일 수정
+[33m138174a[m HEAD@{20}: commit: 로그인 후 홈 페이지에 코스제작 라우터 기능 추가
+[33me7e9def[m HEAD@{21}: commit: 마이페이지에 코스제작 라우터 기능 추가
+[33md8d77a6[m HEAD@{22}: commit: 좋아요 페이지에 코스제작 라우터 기능 추가
+[33ma7d2bc0[m HEAD@{23}: commit: 코스제작 첫 페이지 tsx 파일 추가
+[33mecce7a5[m HEAD@{24}: commit: 코스제작 초기 페이지 less 파일 추가
+[33m66321de[m HEAD@{25}: commit: 코스제작 페이지 추가
+[33m80f40b8[m HEAD@{26}: commit: 프로젝트 생성
+[33me10f675[m HEAD@{27}: commit (initial): 프로젝트 생성
+[33m3ecf5a1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/rescue[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mrescue[m[33m)[m HEAD@{0}: reset: moving to HEAD@{2}
+[33ma749e9f[m HEAD@{1}: commit (merge): rescue 브랜치를 main에 합병
+[33me5b7fb3[m HEAD@{2}: checkout: moving from rescue to main
+[33m3ecf5a1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/rescue[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mrescue[m[33m)[m HEAD@{3}: checkout: moving from main to rescue
+[33me5b7fb3[m HEAD@{4}: commit: 로그인 간단한 수정
+[33mb5e7b39[m[33m ([m[1;31morigin/rescue-code[m[33m)[m HEAD@{5}: pull origin main: Fast-forward
+[33mc41645d[m HEAD@{6}: pull origin main: Merge made by the 'ort' strategy.
+[33m6c42e49[m[33m ([m[1;32mfeature/courseAdd[m[33m)[m HEAD@{7}: checkout: moving from main to main
+[33m6c42e49[m[33m ([m[1;32mfeature/courseAdd[m[33m)[m HEAD@{8}: merge feature/courseAdd: Fast-forward
+[33m275a810[m HEAD@{9}: checkout: moving from feature/courseAdd to main
+[33m6c42e49[m[33m ([m[1;32mfeature/courseAdd[m[33m)[m HEAD@{10}: commit: 코스제작 추가 수정
+[33m275a810[m HEAD@{11}: checkout: moving from main to feature/courseAdd
+[33m275a810[m HEAD@{12}: checkout: moving from feature/courseAdd to main
+[33m275a810[m HEAD@{13}: checkout: moving from main to feature/courseAdd
+[33m275a810[m HEAD@{14}: commit: 로그인 리다이렉트 주소 생성
+[33m0dfba0b[m HEAD@{15}: commit: 코스제작 페이지에 progressBar 추가
+[33m1c621e9[m HEAD@{16}: commit: 네비게이션바 비율 수정
+[33m141695f[m HEAD@{17}: commit: 코스제작 페이지 기능 추가
+[33m6d6ce5f[m HEAD@{18}: commit: 페이지별로 구분 쉽게 분리
+[33m5c9bc97[m HEAD@{19}: commit: 캘린더 카카오맵 api 연결
+[33m6bd412d[m HEAD@{20}: commit: 전체적인 색상과 파일 수정
+[33m138174a[m HEAD@{21}: commit: 로그인 후 홈 페이지에 코스제작 라우터 기능 추가
+[33me7e9def[m HEAD@{22}: commit: 마이페이지에 코스제작 라우터 기능 추가
+[33md8d77a6[m HEAD@{23}: commit: 좋아요 페이지에 코스제작 라우터 기능 추가
+[33ma7d2bc0[m HEAD@{24}: commit: 코스제작 첫 페이지 tsx 파일 추가
+[33mecce7a5[m HEAD@{25}: commit: 코스제작 초기 페이지 less 파일 추가
+[33m66321de[m HEAD@{26}: commit: 코스제작 페이지 추가
+[33m80f40b8[m HEAD@{27}: commit: 프로젝트 생성
+[33me10f675[m HEAD@{28}: commit (initial): 프로젝트 생성

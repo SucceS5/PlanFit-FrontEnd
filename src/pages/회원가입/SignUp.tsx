@@ -13,62 +13,98 @@ function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [birthOfDate, setBirthOfDate] = useState("");
   const [identity, setIdentity] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [photoType, setPhotoType] = useState("ENCODED_BINARY");
   const [errorMessage, setErrorMessage] = useState("");
-  const [idAvailability, setIdAvailability] = useState(""); // 아이디 중복 확인 상태
+  const [idAvailability, setIdAvailability] = useState("");
+  const [idCheckStatus, setIdCheckStatus] = useState(""); // 상태 추가 (success, error, default)
 
-  // 뒤로 가기 버튼 클릭 시
-  const backClick = () => {
-    navigate("/Login");
-  };
+  const backClick = () => navigate("/Login");
 
-  // 아이디 중복 체크 함수 (실시간)
-  const checkIdAvailability = async (id) => {
+  const checkIdAvailability = async (id: string) => {
     if (!id) {
-      setIdAvailability(""); // 아이디가 없으면 상태 초기화
+      setIdAvailability("");
+      setIdCheckStatus("");
       return;
     }
-
     try {
-      const response = await axios.get(`http://www.junwatson.site:8080/api/auth/check-id?loginId=${id}`);
-
-      if (response.status === 200 && response.data.available) {
+      const response = await axios.get(`http://www.junwatson.site:8080/authorization/duplication/${id}`);
+      if (response.status === 200) {
         setIdAvailability("아이디 사용 가능");
-      } else {
-        setIdAvailability("이미 사용 중인 아이디입니다.");
+        setIdCheckStatus("success"); // 파란색 표시
       }
     } catch (error) {
-      console.error("아이디 중복 체크 실패", error);
-      setIdAvailability("아이디 중복 체크 실패");
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 409) {
+          // 중복일 경우
+          setIdAvailability("아이디 사용 불가");
+          setIdCheckStatus("error"); // 빨간색 표시
+        } else {
+          setIdAvailability("아이디 중복 체크 실패");
+          setIdCheckStatus("default"); // 검은색 표시
+        }
+      } else {
+        setIdAvailability("아이디 중복 체크 실패");
+        setIdCheckStatus("default"); // 검은색 표시
+      }
     }
   };
 
-  // 회원가입 클릭 시
-  const signUpClick = async () => {
-    // 아이디 중복 체크
-    if (idAvailability !== "아이디 사용 가능") {
-      setErrorMessage("아이디 중복 확인을 해주세요.");
-      return;
-    }
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    try {
-      const response = await axios.post("http://www.junwatson.site:8080/api/auth/signup", {
-        name,
-        loginId,
-        password,
-        email,
-        phoneNumber,
-        birthOfDate,
-        identity,
-      });
-
-      if (response.status === 200) {
-        console.log("회원가입 성공", response.data);
-        navigate("/Login");
-      } else {
-        console.error("회원가입 실패", response.status);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") {
+        setProfilePhoto(reader.result.split(",")[1]);
       }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const signUpClick = async () => {
+    console.log(typeof birthOfDate, birthOfDate);
+    console.log("회원가입 요청 데이터:", {
+      name,
+      loginId,
+      password,
+      email,
+      phoneNumber,
+      birthOfDate,
+      identity,
+      profilePhoto: profilePhoto || undefined,
+      photoType: profilePhoto ? photoType : undefined,
+    });
+    try {
+      const response = await axios.post(
+        "http://www.junwatson.site:8080/authorization/planfit",
+        {
+          name,
+          loginId,
+          password,
+          email,
+          phoneNumber,
+          birthOfDate,
+          identity,
+          profilePhoto: profilePhoto || undefined,
+          photoType: profilePhoto ? photoType : undefined,
+        },
+        {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+        }
+      );
+
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+      navigate("/Login");
     } catch (error) {
-      console.error("회원가입 중 오류 발생", error);
+      if (axios.isAxiosError(error)) {
+        setErrorMessage("회원가입 실패: " + (error.response?.data?.message || "알 수 없는 오류"));
+      } else {
+        setErrorMessage("회원가입 실패: 알 수 없는 오류");
+      }
     }
   };
 
@@ -82,67 +118,45 @@ function SignUp() {
       </div>
       <div className={style.main}>
         <div className={style.signUpList}>
-          <div className={style.inputGroup}>
-            <input
-              type="text"
-              placeholder="아이디"
-              id="id"
-              value={loginId}
-              onChange={(e) => {
-                setLoginId(e.target.value);
-                checkIdAvailability(e.target.value); // 아이디 변경 시 실시간 체크
-              }}
-            />
-            <div className={style.idCheckMessage}>
-              {idAvailability && (
-                <span className={idAvailability === "아이디 사용 가능" ? style.success : style.error}>
-                  {idAvailability}
-                </span>
-              )}
-            </div>
+          <input
+            type="text"
+            placeholder="아이디"
+            value={loginId}
+            onChange={(e) => {
+              setLoginId(e.target.value);
+              checkIdAvailability(e.target.value);
+            }}
+          />
+          <div className={style.idCheckMessage}>
+            {idAvailability && (
+              <span
+                className={
+                  idCheckStatus === "success" ? style.success : idCheckStatus === "error" ? style.error : style.default
+                }
+              >
+                {idAvailability}
+              </span>
+            )}
           </div>
-
           <input
             type="password"
             placeholder="비밀번호"
-            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input type="text" placeholder="이름" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input type="text" placeholder="이름" value={name} onChange={(e) => setName(e.target.value)} />
           <input
             type="text"
             placeholder="전화번호"
-            id="phoneNumber"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
-          <input
-            type="date"
-            placeholder="생년월일"
-            id="birth"
-            value={birthOfDate}
-            onChange={(e) => setBirthOfDate(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="이메일"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="신분"
-            id="position"
-            value={identity}
-            onChange={(e) => setIdentity(e.target.value)}
-          />
+          <input type="date" value={birthOfDate} onChange={(e) => setBirthOfDate(e.target.value)} />
+          <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="text" placeholder="신분" value={identity} onChange={(e) => setIdentity(e.target.value)} />
+          <input type="file" className={style.file} accept="image/*" onChange={handleFileChange} />
         </div>
-
-        {/* 오류 메시지 표시 */}
         {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
-
         <div className={style.signUp} onClick={signUpClick}>
           회원가입
         </div>

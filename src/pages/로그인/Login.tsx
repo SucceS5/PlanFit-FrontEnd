@@ -1,4 +1,4 @@
-import style from "../../less/로그인/Login.module.less";
+import style from "../../less/\uB85C\uADF8\uC778/Login.module.less";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { RiKakaoTalkFill } from "react-icons/ri";
@@ -10,40 +10,59 @@ function Login() {
   const navigate = useNavigate();
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const backClick = () => {
-    navigate("/Home");
+    navigate("/NewHome");
   };
 
   const signUpClick = () => {
     navigate("/SignUp");
   };
 
-  // 예시: 로그인 실패 시 회원가입 안내
+  // 로그인 클릭 시
   const loginClick = async () => {
+    const testAdmin = {
+      loginId: "planfit05",
+      name: "관리자",
+      password: "planfit05",
+    };
+
+    console.log("로그인 요청 데이터:", JSON.stringify({ loginId, password }, null, 2));
+
+    if (loginId === testAdmin.loginId && password === testAdmin.password) {
+      localStorage.setItem("accessToken", "dummy_access_token");
+      localStorage.setItem("refreshToken", "dummy_refresh_token");
+      localStorage.setItem("userName", testAdmin.name);
+      navigate("/MainHome");
+      return;
+    }
+
     try {
       const response = await axios.post(
-        "http://www.junwatson.site:8080/api/auth/login",
-        { loginId, password },
-        { headers: { "Content-Type": "application/json;charset=utf-8" } }
+        "http://www.junwatson.site:8080/authorization/planfit/signIn",
+        {
+          loginId,
+          password,
+        },
+        {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+        }
       );
 
-      if (response.status === 200) {
-        // 로그인 성공 시 토큰 저장
-        localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.refreshToken);
-        navigate("/LoginHome");
-      }
+      console.log("로그인 성공:", response.data);
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+      navigate("/MainHome");
     } catch (error) {
-      if (error.response) {
-        // 서버에서 반환한 메시지 처리
-        if (error.response.status === 403) {
-          alert("로그인 실패: 아이디가 존재하지 않거나 비밀번호가 틀립니다. 회원가입을 먼저 진행해 주세요.");
-        } else {
-          alert("로그인 실패: 아이디와 비밀번호를 확인해주세요.");
-        }
+      if (axios.isAxiosError(error) && error.response) {
+        console.error("로그인 실패:", error.response.data);
+        setErrorMessage(
+          "로그인 실패: " + (error.response.data?.message || "아이디 또는 비밀번호가 올바르지 않습니다.")
+        );
       } else {
-        alert("네트워크 오류 발생");
+        console.error("로그인 요청 중 오류 발생:", error);
+        setErrorMessage("로그인 실패: 알 수 없는 오류");
       }
     }
   };
@@ -68,21 +87,15 @@ function Login() {
       </div>
       <div className={style.main}>
         <div className={style.joinbox}>
-          <input
-            type="text"
-            placeholder="아이디"
-            id="id"
-            value={loginId}
-            onChange={(e) => setLoginId(e.target.value)}
-          />
+          <input type="text" placeholder="아이디" value={loginId} onChange={(e) => setLoginId(e.target.value)} />
           <input
             type="password"
             placeholder="비밀번호"
-            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
         <p onClick={loginClick}>로그인</p>
         <div className={style.findInfo}></div>
         <div className={style.otherLogin}>
